@@ -1,0 +1,28 @@
+@import "../../../../styles/colors.scss";
+@import "../../../../styles/mixins.scss";
+@import "./mixins.scss";
+
+.pricesProducts {
+  @include block-style;
+
+  .edit {
+    @include btn-icon;
+
+    top: 10px;
+    right: 60px;
+  }
+
+  .pricesProductsItem {
+    display: flex;
+    gap: 20px;
+
+    justify-content: space-between;
+
+    .valuesBlock {
+      @include display-flex;
+      .valueBlock {
+        @include display-flex;
+      }
+    }
+  }
+}

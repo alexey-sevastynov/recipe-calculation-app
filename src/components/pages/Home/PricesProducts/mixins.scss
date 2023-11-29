@@ -1,0 +1,26 @@
+@import "../../../../styles/colors.scss";
+@import "../../../../styles/sizes.scss";
+@import "../../../../styles/brake-points.scss";
+
+@mixin block-style {
+  position: relative;
+  padding: 50px 20px 16px 20px;
+
+  background-color: $white;
+
+  outline: 1px solid $grey;
+  border-radius: $borderRadius;
+
+  &:hover {
+    outline: 1px solid $green;
+  }
+
+  @media (max-width: $tablet-breakpoint) {
+    padding: 50px 5px 5px 5px;
+  }
+}
+
+@mixin display-flex {
+  display: flex;
+  gap: 10px;
+}

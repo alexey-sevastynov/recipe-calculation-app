@@ -1,0 +1,36 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/colors.scss";
+
+.itemProducts {
+  display: flex;
+  gap: 10px;
+
+  justify-content: space-between;
+
+  align-items: center;
+  .itemProductName {
+    width: 200px;
+  }
+
+  .blockValues {
+    display: flex;
+
+    gap: 20px;
+
+    .blockValue {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      width: 80px;
+    }
+  }
+  .btns {
+    display: flex;
+    gap: 10px;
+    .edit,
+    .delete {
+      @include btn-icon;
+      position: relative;
+    }
+  }
+}
