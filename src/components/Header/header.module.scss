@@ -1,0 +1,17 @@
+@import "../../styles/colors.scss";
+@import "../../styles/sizes.scss";
+
+.header {
+  padding: 0 auto;
+  background-color: $white;
+  height: $heightHeader;
+  width: 100%;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.221);
+
+  .headerWrapper {
+    height: $heightHeader;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
