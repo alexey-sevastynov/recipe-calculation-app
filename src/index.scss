@@ -1,0 +1,30 @@
+@import "./styles/colors.scss";
+@import "./styles/sizes.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Courier New", Courier, monospace;
+}
+
+h5 {
+  color: black;
+  text-align: center;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+h3 {
+  color: $grey;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+body {
+  background-color: $bg-main;
+}
+
+.container {
+  max-width: $windowFieldWidth;
+  margin: 0 auto;
+  padding: 0px 5px;
+}
