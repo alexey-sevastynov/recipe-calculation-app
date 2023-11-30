@@ -24,9 +24,14 @@ export const productsSlice = createSlice({
         state.listProducts = [action.payload, ...state.listProducts];
       }
     },
+    deleteProduct: (state, action: PayloadAction<number | null>) => {
+      state.listProducts = state.listProducts.filter(
+        (item) => item.id !== action.payload
+      );
+    },
   },
 });
 
-export const { addProduct } = productsSlice.actions;
+export const { addProduct, deleteProduct } = productsSlice.actions;
 
 export default productsSlice.reducer;

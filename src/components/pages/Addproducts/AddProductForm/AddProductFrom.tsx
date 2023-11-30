@@ -19,9 +19,20 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({}) => {
   } = useForm<InputsAddProductsForm>();
 
   const onSubmit: SubmitHandler<InputsAddProductsForm> = (data) => {
-    console.log(data);
+    const { netWeight, price, productName, weightUnit } = data;
     const id = Math.random() * 10;
-    dispatch(addProduct({ id, ...data }));
+    const netWeightTypeNumber = +netWeight;
+    const priceTypeNumber = price ? +price : 0;
+
+    dispatch(
+      addProduct({
+        id,
+        productName,
+        netWeight: netWeightTypeNumber,
+        price: priceTypeNumber,
+        weightUnit,
+      })
+    );
   };
 
   return (
