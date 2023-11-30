@@ -1,1 +1,14 @@
+@import "../../../styles/colors.scss";
+@import "../../../styles/sizes.scss";
+@import "../../../styles/mixins.scss";
 
+$margin-top-bottom: 20px;
+
+.add-products {
+  @include height-vh100-window;
+
+  &__btns {
+    display: flex;
+    gap: 40px;
+  }
+}

@@ -10,3 +10,15 @@
 
   cursor: pointer;
 }
+
+@mixin height-vh100-window {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  background-color: $white;
+  height: calc(100vh - $heightHeader - $margin-top-bottom - $margin-top-bottom);
+  margin: $margin-top-bottom 0;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 1px solid $grey;
+}

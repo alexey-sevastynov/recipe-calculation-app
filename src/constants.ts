@@ -7,6 +7,8 @@ export const ROUTES = {
 export const MESSAGE_PRODUCT_LIST_EMPTY =
   "Поки що у вас немає продуктів! Додати продукти, натисніть на кнопку вище";
 
+export const UNITS: UnitsType[] = ["гр", "мл", "кг", "л", "шт"];
+
 export const FAKE_LIST: TypeItemProduct[] = [
   {
     id: 27.57553560032877,
