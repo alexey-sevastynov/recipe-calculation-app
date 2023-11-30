@@ -12,7 +12,7 @@ import {
   setProductFormState,
 } from "../../../../redux/productsSlice";
 
-export const AddProductForm: React.FC<AddProductFormProps> = ({}) => {
+export const AddProductForm: React.FC<AddProductFormProps> = () => {
   const dispatch = useAppDispatch();
   const isEdit = useAppSelector((state) => state.products.isEdit);
   const productFormState = useAppSelector(
@@ -22,8 +22,6 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({}) => {
   const {
     register,
     handleSubmit,
-    watch,
-    getValues,
     setValue,
     formState: { errors },
   } = useForm<InputsAddProductsForm>();
@@ -44,9 +42,9 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({}) => {
         setProductFormState({
           id: null,
           productName: "",
-          netWeight: 0,
+          netWeight: null,
           weightUnit: "гр",
-          price: 0,
+          price: null,
         })
       );
     } else {
@@ -67,10 +65,12 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({}) => {
   };
 
   React.useEffect(() => {
-    setValue("productName", productFormState.productName);
-    setValue("netWeight", productFormState.netWeight);
-    setValue("weightUnit", productFormState.weightUnit);
-    setValue("price", productFormState.price);
+    if (productFormState.netWeight && productFormState.price) {
+      setValue("productName", productFormState.productName);
+      setValue("netWeight", productFormState.netWeight);
+      setValue("weightUnit", productFormState.weightUnit);
+      setValue("price", productFormState.price);
+    }
   }, [productFormState]);
 
   return (
@@ -102,7 +102,7 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({}) => {
         placeholder="СКІЛЬКИ КОШТУЄ ..."
         {...register("price", { required: true })}
       />
-      <p>uah</p>
+      <p>грн</p>
 
       {isEdit ? <Btn type="submit">edit</Btn> : <Btn type="submit">add</Btn>}
     </form>

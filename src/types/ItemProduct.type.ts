@@ -1,7 +1,7 @@
 type TypeItemProduct = {
   id: number | null;
   productName: string;
-  netWeight: number;
-  price?: number;
+  netWeight: number | null;
+  price?: number | null;
   weightUnit: UnitsType;
 };

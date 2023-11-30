@@ -6,16 +6,25 @@ import { Btn } from "../components/Btn/Btn";
 import { Link } from "react-router-dom";
 import { AddProductForm } from "../components/pages/Addproducts/AddProductForm/AddProductFrom";
 import { useAppSelector } from "../redux/hook";
+import { MESSAGE_PRODUCT_LIST_EMPTY } from "../constants";
 
 export const AddProducts = () => {
   const listProducts = useAppSelector((state) => state.products.listProducts);
+
+  const isProductListNotEmpty = listProducts.length === 0;
+
+  const message = <p>{MESSAGE_PRODUCT_LIST_EMPTY}</p>;
 
   return (
     <div className="container">
       <div className="add-products">
         <h3>ЦІНА ТОВАРУ В МАГАЗИНІ:</h3>
         <AddProductForm />
-        <ListProducts listItems={listProducts} />
+        {isProductListNotEmpty ? (
+          message
+        ) : (
+          <ListProducts listItems={listProducts} />
+        )}
 
         <div className="add-products__btns">
           <Link to={"/"}>
