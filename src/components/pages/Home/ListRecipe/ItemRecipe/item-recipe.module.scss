@@ -1,0 +1,64 @@
+@import "../../../../../styles/colors.scss";
+@import "../../../../../styles/mixins.scss";
+@import "../../mixins.scss";
+
+.itemRecipe {
+  min-width: 560px;
+  @include block-style;
+
+  .edit,
+  .delete {
+    @include btn-icon;
+  }
+
+  .edit {
+    top: 10px;
+    right: 60px;
+  }
+
+  .delete {
+    top: 10px;
+    right: 20px;
+  }
+
+  .ingredientsTilte {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    display: flex;
+
+    gap: 10px;
+
+    span {
+      flex-grow: 1;
+    }
+  }
+
+  .ingredients {
+    // max-width: 345px;
+    // margin: 0 auto;
+
+    .ingredientsItem {
+      display: flex;
+      justify-content: space-between;
+
+      .ingredientsItemBlockValue {
+        display: flex;
+        gap: 10px;
+
+        p:first-child {
+          text-align: end;
+          width: 70px;
+        }
+        p:last-child {
+          width: 70px;
+        }
+      }
+    }
+  }
+
+  footer {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+  }
+}

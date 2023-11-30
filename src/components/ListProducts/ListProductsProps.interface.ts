@@ -1,4 +1,4 @@
 interface ListProductProps {
-  listItems: TypeItemProduct[];
+  listItems: TypeItemProduct[] | TypeItemRecipe[];
   noButtons?: boolean;
 }

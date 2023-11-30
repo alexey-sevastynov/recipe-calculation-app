@@ -1,6 +1,6 @@
 @import "../../../../styles/colors.scss";
 @import "../../../../styles/mixins.scss";
-@import "./mixins.scss";
+@import "../mixins.scss";
 
 .pricesProducts {
   @include block-style;
