@@ -3,7 +3,6 @@
 @import "../../mixins.scss";
 
 .itemRecipe {
-  min-width: 560px;
   @include block-style;
 
   .edit,

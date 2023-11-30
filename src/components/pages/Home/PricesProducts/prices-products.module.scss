@@ -3,13 +3,14 @@
 @import "../mixins.scss";
 
 .pricesProducts {
+  flex-grow: 1;
   @include block-style;
 
   .edit {
     @include btn-icon;
 
     top: 10px;
-    right: 60px;
+    right: 20px;
   }
 
   .pricesProductsItem {
