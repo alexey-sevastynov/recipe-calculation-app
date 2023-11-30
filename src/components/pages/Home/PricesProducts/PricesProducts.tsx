@@ -9,7 +9,7 @@ import { FAKE_LIST, MESSAGE_PRODUCT_LIST_EMPTY } from "../../../../constants";
 
 export const PricesProducts = () => {
   const listProducts = useAppSelector((item) => item.products.listProducts);
-  const isProductListNotEmpty = listProducts.length !== 0; // fix "===0"
+  const isProductListNotEmpty = listProducts.length === 0;
 
   const message = <p>{MESSAGE_PRODUCT_LIST_EMPTY}</p>;
   return (
@@ -25,7 +25,7 @@ export const PricesProducts = () => {
       {isProductListNotEmpty ? (
         message
       ) : (
-        <ListProducts listItems={FAKE_LIST} noButtons />
+        <ListProducts listItems={listProducts} noButtons />
       )}
     </section>
   );
