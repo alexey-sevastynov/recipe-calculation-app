@@ -3,10 +3,20 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface IInitialState {
   listProducts: TypeItemProduct[];
+  isEdit: boolean;
+  productFormState: TypeItemProduct;
 }
 
 const initialState: IInitialState = {
   listProducts: [],
+  isEdit: false,
+  productFormState: {
+    id: null,
+    productName: "",
+    netWeight: 0,
+    weightUnit: "гр",
+    price: 0,
+  },
 };
 
 export const productsSlice = createSlice({
@@ -29,9 +39,35 @@ export const productsSlice = createSlice({
         (item) => item.id !== action.payload
       );
     },
+
+    editProduct: (state, action: PayloadAction<TypeItemProduct>) => {
+      state.listProducts = state.listProducts.map((item) => {
+        const id = action.payload.id;
+        if (item.id === id) {
+          console.log("edited", action.payload);
+          return action.payload;
+        }
+        console.log("NOTedited", item.id, id);
+        return item;
+      });
+    },
+
+    showButtonEdit: (state, action: PayloadAction<boolean>) => {
+      state.isEdit = action.payload;
+    },
+
+    setProductFormState: (state, action: PayloadAction<TypeItemProduct>) => {
+      state.productFormState = action.payload;
+    },
   },
 });
 
-export const { addProduct, deleteProduct } = productsSlice.actions;
+export const {
+  addProduct,
+  deleteProduct,
+  editProduct,
+  showButtonEdit,
+  setProductFormState,
+} = productsSlice.actions;
 
 export default productsSlice.reducer;

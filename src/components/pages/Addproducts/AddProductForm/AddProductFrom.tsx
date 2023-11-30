@@ -5,38 +5,80 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { UNITS } from "../../../../constants";
 import { Btn } from "../../../Btn/Btn";
 import { InputsAddProductsForm } from "./InputsAddProductForm";
-import { useAppDispatch } from "../../../../redux/hook";
-import { addProduct } from "../../../../redux/productsSlice";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hook";
+import {
+  addProduct,
+  editProduct,
+  setProductFormState,
+} from "../../../../redux/productsSlice";
 
 export const AddProductForm: React.FC<AddProductFormProps> = ({}) => {
   const dispatch = useAppDispatch();
+  const isEdit = useAppSelector((state) => state.products.isEdit);
+  const productFormState = useAppSelector(
+    (state) => state.products.productFormState
+  );
 
   const {
     register,
     handleSubmit,
     watch,
+    getValues,
+    setValue,
     formState: { errors },
   } = useForm<InputsAddProductsForm>();
 
   const onSubmit: SubmitHandler<InputsAddProductsForm> = (data) => {
     const { netWeight, price, productName, weightUnit } = data;
-    const id = Math.random() * 10;
-    const netWeightTypeNumber = +netWeight;
-    const priceTypeNumber = price ? +price : 0;
+    if (isEdit) {
+      dispatch(
+        editProduct({
+          id: productFormState.id,
+          productName,
+          price,
+          netWeight,
+          weightUnit,
+        })
+      );
+      dispatch(
+        setProductFormState({
+          id: null,
+          productName: "",
+          netWeight: 0,
+          weightUnit: "гр",
+          price: 0,
+        })
+      );
+    } else {
+      const id = Math.random() * 10;
+      const netWeightTypeNumber = +netWeight;
+      const priceTypeNumber = price ? +price : 0;
 
-    dispatch(
-      addProduct({
-        id,
-        productName,
-        netWeight: netWeightTypeNumber,
-        price: priceTypeNumber,
-        weightUnit,
-      })
-    );
+      dispatch(
+        addProduct({
+          id,
+          productName,
+          netWeight: netWeightTypeNumber,
+          price: priceTypeNumber,
+          weightUnit,
+        })
+      );
+    }
   };
 
+  React.useEffect(() => {
+    setValue("productName", productFormState.productName);
+    setValue("netWeight", productFormState.netWeight);
+    setValue("weightUnit", productFormState.weightUnit);
+    setValue("price", productFormState.price);
+  }, [productFormState]);
+
   return (
-    <form className={Styles.AddProductFrom} onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className={Styles.AddProductFrom}
+      onSubmit={handleSubmit(onSubmit)}
+      id="form-product"
+    >
       <input
         type="text"
         placeholder="НАЗВА ТОВАРУ ..."
@@ -62,7 +104,7 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({}) => {
       />
       <p>uah</p>
 
-      {false ? <Btn type="submit">edit</Btn> : <Btn type="submit">add</Btn>}
+      {isEdit ? <Btn type="submit">edit</Btn> : <Btn type="submit">add</Btn>}
     </form>
   );
 };

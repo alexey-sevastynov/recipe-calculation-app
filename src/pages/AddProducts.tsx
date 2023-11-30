@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/pages/add-products/add-products.scss";
-import { FAKE_LIST } from "../constants";
+
 import { ListProducts } from "../components/ListProducts/ListProducts";
 import { Btn } from "../components/Btn/Btn";
 import { Link } from "react-router-dom";
