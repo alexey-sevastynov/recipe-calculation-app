@@ -20,11 +20,14 @@ export const AddProducts = () => {
       <div className="add-products">
         <h3>ЦІНА ТОВАРУ В МАГАЗИНІ:</h3>
         <AddProductForm />
-        {isProductListNotEmpty ? (
-          message
-        ) : (
-          <ListProducts listItems={listProducts} />
-        )}
+
+        <div className="add-products__list">
+          {isProductListNotEmpty ? (
+            message
+          ) : (
+            <ListProducts listItems={listProducts} />
+          )}
+        </div>
 
         <div className="add-products__btns">
           <Link to={"/"}>

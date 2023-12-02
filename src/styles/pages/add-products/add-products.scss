@@ -6,6 +6,12 @@ $margin-top-bottom: 20px;
 
 .add-products {
   @include height-vh100-window;
+  display: flex;
+
+  &__list {
+    flex-grow: 1;
+    overflow-y: scroll;
+  }
 
   &__btns {
     display: flex;

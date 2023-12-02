@@ -4,11 +4,14 @@ import Style from "./item-recipe.module.scss";
 import { Link } from "react-router-dom";
 import { getIconUrl } from "../../../../../helpers/getIconUrl";
 import { ListProducts } from "../../../../ListProducts/ListProducts";
+import { useAppDispatch } from "../../../../../redux/hook";
+import { deleteRecipe } from "../../../../../redux/recipesSlice";
 
 export const ItemRecipe: React.FC<ItemRecipeProps> = ({
   title,
   ingredients,
 }) => {
+  const dispatch = useAppDispatch();
   const isArrayIngredients = Array.isArray(ingredients);
 
   return (
@@ -20,7 +23,10 @@ export const ItemRecipe: React.FC<ItemRecipeProps> = ({
         </button>
       </Link>
 
-      <button className={Style.delete}>
+      <button
+        className={Style.delete}
+        onClick={() => dispatch(deleteRecipe(title))}
+      >
         <img src={getIconUrl("delete.svg")} alt="delete" />
       </button>
 

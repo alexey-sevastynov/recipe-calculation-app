@@ -32,9 +32,18 @@ export const recipesSlice = createSlice({
         };
       }
     },
+
+    deleteRecipe: (state, action: PayloadAction<string>) => {
+      const recipeNameToDelete = action.payload;
+      const listRecipe = state.listRecipes as Recipe;
+
+      if (recipeNameToDelete in listRecipe) {
+        delete listRecipe[recipeNameToDelete];
+      }
+    },
   },
 });
 
-export const { addRecipe } = recipesSlice.actions;
+export const { addRecipe, deleteRecipe } = recipesSlice.actions;
 
 export default recipesSlice.reducer;
