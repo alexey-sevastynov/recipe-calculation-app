@@ -9,7 +9,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { InputsAddRecipesForm } from "../types/InputsAddRecipeForm";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { addRecipe, editRecipe } from "../redux/recipesSlice";
-import { editProduct } from "../redux/productsSlice";
 
 export const CreateRecipe = () => {
   const dispatch = useAppDispatch();
