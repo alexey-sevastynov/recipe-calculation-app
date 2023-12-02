@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from "react";
 import "../styles/pages/create-recipe/CreateRecipe.scss";
-import { FAKE_LIST } from "../constants";
+
 import { ListProducts } from "../components/ListProducts/ListProducts";
 import { Btn } from "../components/Btn/Btn";
 import { Link } from "react-router-dom";
 import { AddRecipeForm } from "../components/pages/CreateRecipe/AddRecipeForm/AddRecipeForm";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { InputsAddRecipesForm } from "../types/InputsAddRecipeForm";
-import { useAppDispatch } from "../redux/hook";
-import { addRecipe } from "../redux/recipesSlice";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
+import { addRecipe, editRecipe } from "../redux/recipesSlice";
+import { editProduct } from "../redux/productsSlice";
 
 export const CreateRecipe = () => {
   const dispatch = useAppDispatch();
+  const listRecipes = useAppSelector((state) => state.recipes.listRecipes);
+  const isEditRecipe = useAppSelector((state) => state.recipes.isEditRecipe);
+  const recipeNameToEdit = useAppSelector(
+    (state) => state.recipes.recipeNameToEdit
+  );
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
+    getValues,
   } = useForm<InputsAddRecipesForm>();
 
   const [ingredients, setIngredients] = useState<
@@ -24,13 +32,27 @@ export const CreateRecipe = () => {
   >(null);
 
   const onSubmit: SubmitHandler<InputsAddRecipesForm> = ({ nameRecipe }) => {
-    console.log(nameRecipe, ingredients);
+    console.log("onSubmit", nameRecipe, ingredients);
     if (ingredients && nameRecipe) {
-      dispatch(addRecipe({ nameRecipe, value: ingredients }));
+      if (!isEditRecipe) {
+        console.log("onSubmited");
+
+        dispatch(addRecipe({ nameRecipe, value: ingredients }));
+      } else {
+        console.log("onSubmited edited");
+        dispatch(editRecipe({ nameRecipe, value: ingredients }));
+      }
     }
   };
 
   const isArrayIngredients = Array.isArray(ingredients);
+
+  useEffect(() => {
+    if (isEditRecipe) {
+      setValue("nameRecipe", recipeNameToEdit);
+      setIngredients(listRecipes[recipeNameToEdit]);
+    }
+  }, [getValues("nameRecipe")]);
 
   return (
     <div className="container">
@@ -44,7 +66,11 @@ export const CreateRecipe = () => {
         />
         {ingredients &&
           (isArrayIngredients ? (
-            <ListProducts listItems={ingredients} />
+            <ListProducts
+              listItems={ingredients}
+              setIngredients={setIngredients}
+              nameRecipe={getValues("nameRecipe")}
+            />
           ) : (
             Object.keys(ingredients).map((recipeStep) => (
               <div key={recipeStep}>
@@ -56,13 +82,23 @@ export const CreateRecipe = () => {
                 <button type="button" className="btn">
                   remove step
                 </button>
-                <ListProducts listItems={ingredients[recipeStep]} />
+                <ListProducts
+                  listItems={ingredients[recipeStep]}
+                  ingredients={ingredients}
+                  setIngredients={setIngredients}
+                  nameRecipe={getValues("nameRecipe")}
+                />
               </div>
             ))
           ))}
 
         <div className="add-products__btns">
-          <Btn type="submit">Publish</Btn>
+          {isEditRecipe ? (
+            <Btn type="submit">Edit</Btn>
+          ) : (
+            <Btn type="submit">Publish</Btn>
+          )}
+
           <Link to="/">
             <Btn>Cancel</Btn>
           </Link>

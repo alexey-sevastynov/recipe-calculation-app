@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Styles from "./list-products.module.scss";
 import { ItemProduct } from "../ItemProduct/ItemProduct";
 
 export const ListProducts: React.FC<ListProductProps> = ({
   listItems,
   noButtons,
+  nameRecipe,
+  setIngredients,
+  ingredients,
 }) => {
   return (
     <div className={Styles.listProducts}>
@@ -17,6 +20,10 @@ export const ListProducts: React.FC<ListProductProps> = ({
           weightUnit={product.weightUnit}
           price={product.price}
           noButtons={noButtons}
+          nameRecipe={nameRecipe}
+          listItems={listItems}
+          setIngredients={setIngredients}
+          ingredients={ingredients}
         />
       ))}
     </div>

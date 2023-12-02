@@ -15,6 +15,9 @@ export const ItemProduct: React.FC<ItemProductProps> = ({
   price,
   weightUnit,
   noButtons,
+  listItems,
+  setIngredients,
+  ingredients,
 }) => {
   const dispatch = useAppDispatch();
   const editButtonRef = useRef<HTMLButtonElement>(null);
@@ -44,6 +47,20 @@ export const ItemProduct: React.FC<ItemProductProps> = ({
 
   const deleteItem = () => {
     dispatch(deleteProduct(id));
+
+    if (setIngredients) {
+      if (Array.isArray(listItems) && !ingredients) {
+        setIngredients(listItems.filter((item) => item.id !== id));
+      } else {
+        const updatedListItems: RecipeWithSteps = {};
+        for (const key in ingredients) {
+          updatedListItems[key] = ingredients[key].filter(
+            (item) => item.id !== id
+          );
+        }
+        setIngredients(updatedListItems);
+      }
+    }
   };
 
   const editItem = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -74,12 +91,13 @@ export const ItemProduct: React.FC<ItemProductProps> = ({
         <div className={Styles.btns}>
           <button
             ref={editButtonRef}
+            type="button"
             className={Styles.edit}
             onClick={editItem}
           >
             <img src={getIconUrl("edit.svg")} alt="edit" />
           </button>
-          <button className={Styles.delete} onClick={deleteItem}>
+          <button type="button" className={Styles.delete} onClick={deleteItem}>
             <img src={getIconUrl("delete.svg")} alt="delete" />
           </button>
         </div>
