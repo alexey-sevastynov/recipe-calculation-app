@@ -33,12 +33,14 @@ export const ItemRecipe: React.FC<ItemRecipeProps> = ({
         {isArrayIngredients ? (
           <ListProducts listItems={ingredients} noButtons />
         ) : (
-          Object.keys(ingredients).map((recipeStep) => (
-            <div key={recipeStep}>
-              <b>{recipeStep}</b>
-              <ListProducts listItems={ingredients[recipeStep]} noButtons />
-            </div>
-          ))
+          Object.keys(ingredients)
+            .sort()
+            .map((recipeStep) => (
+              <div key={recipeStep}>
+                <b>{recipeStep}</b>
+                <ListProducts listItems={ingredients[recipeStep]} noButtons />
+              </div>
+            ))
         )}
       </div>
 

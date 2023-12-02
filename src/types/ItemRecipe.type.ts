@@ -2,7 +2,8 @@ type TypeItemRecipe = {
   id: number;
   productName: string;
   netWeight: number;
-  weightUnit: string;
+  weightUnit: UnitsType;
+  price?: number;
 };
 
 type RecipeWithSteps = {
