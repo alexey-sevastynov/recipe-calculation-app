@@ -6,8 +6,33 @@ export const ROUTES = {
 
 export const MESSAGE_PRODUCT_LIST_EMPTY =
   "Поки що у вас немає продуктів! Додати продукти, натисніть на кнопку вище";
+export const MESSAGE_FOUND_PRODUCT_LIST_EMPTY =
+  "На жаль ми не знайшли в списку назву продукту, починаючи з цих літер, спробуй інакше";
 
 export const UNITS: UnitsType[] = ["гр", "мл", "кг", "л", "шт"];
+
+export const SORT_NAMES = [
+  {
+    id: 1,
+    value: "nameAsc",
+    name: "абетка (А-Я)",
+  },
+  {
+    id: 2,
+    value: "nameDesc",
+    name: "абетка (Я-А)",
+  },
+  {
+    id: 3,
+    value: "priceAsc",
+    name: "ціною (від менш.)",
+  },
+  {
+    id: 4,
+    value: "priceDesc",
+    name: "ціною (від більш.)",
+  },
+];
 
 export const FAKE_LIST: TypeItemProduct[] = [
   {

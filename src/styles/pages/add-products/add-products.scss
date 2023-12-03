@@ -1,6 +1,7 @@
 @import "../../../styles/colors.scss";
 @import "../../../styles/sizes.scss";
 @import "../../../styles/mixins.scss";
+@import "../../../styles/brake-points.scss";
 
 $margin-top-bottom: 20px;
 
@@ -8,13 +9,49 @@ $margin-top-bottom: 20px;
   @include height-vh100-window;
   display: flex;
 
-  &__list {
+  &__main {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
     flex-grow: 1;
-    overflow-y: scroll;
+    height: 50%;
+
+    gap: 20px;
+
+    &-col1 {
+      flex-grow: 1;
+      &-list {
+        height: 80%;
+        margin: 10px 0px 0px 0px;
+        padding-right: 10px;
+
+        overflow-y: scroll;
+      }
+    }
+    &-col2 {
+      flex-grow: 0;
+    }
   }
 
   &__btns {
     display: flex;
     gap: 40px;
+  }
+
+  @media (max-width: $tablet-breakpoint) {
+    &__main {
+      flex-direction: column-reverse;
+
+      &-col1 {
+        &-list {
+          padding-right: 0px;
+        }
+      }
+    }
+
+    &__btns {
+      display: flex;
+      gap: 40px;
+    }
   }
 }
