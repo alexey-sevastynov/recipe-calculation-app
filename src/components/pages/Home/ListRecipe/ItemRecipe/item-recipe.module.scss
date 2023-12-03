@@ -5,6 +5,19 @@
 .itemRecipe {
   @include block-style;
 
+  .warning {
+    max-width: 650px;
+    margin-top: 20px;
+    p {
+      font-weight: 600;
+      color: $red;
+    }
+
+    li {
+      color: $red;
+    }
+  }
+
   .edit,
   .delete {
     @include btn-icon;

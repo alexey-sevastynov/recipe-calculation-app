@@ -33,9 +33,38 @@ export const ItemRecipe: React.FC<ItemRecipeProps> = ({
     isArrayIngredients
   );
 
+  const showWarning = () => {
+    const allRecipeProducts = Object.values(ingredients).flat();
+
+    const missingProducts: TypeItemRecipe[] = allRecipeProducts.filter(
+      (recipeProduct) =>
+        !listProducts.some(
+          (product) =>
+            product.productName.toLowerCase() ===
+            recipeProduct.productName.toLowerCase()
+        )
+    );
+    const message = (
+      <div className={Style.warning}>
+        <p>
+          Цих продуктів немає в твоєму списку "ЦІНА ТОВАРУ В МАГАЗИНІ:", тому
+          розрахунок невірний. Додай ці товари до свого списку!
+        </p>
+        <ul>
+          {missingProducts.map((item) => (
+            <li>{item.productName} (ціна невідома)</li>
+          ))}
+        </ul>
+      </div>
+    );
+
+    return missingProducts.length === 0 ? false : message;
+  };
+
   return (
     <div className={Style.itemRecipe}>
       <h5>{title}</h5>
+      <p>{showWarning()}</p>
       <Link to={"/create-recipe"}>
         <button className={Style.edit} onClick={editRecipe}>
           <img src={getIconUrl("edit.svg")} alt="edit" />
@@ -51,6 +80,7 @@ export const ItemRecipe: React.FC<ItemRecipeProps> = ({
 
       <div className={Style.ingredientsTilte}>
         <p>інгредієнти</p>
+
         <span style={{ borderBottom: "1px solid grey" }} />
       </div>
 
@@ -71,8 +101,7 @@ export const ItemRecipe: React.FC<ItemRecipeProps> = ({
         ) : isArrayIngredients ? (
           <ListProducts listItems={ingredients} noButtons />
         ) : (
-          Object.keys(ingredients)
-          .map((recipeStep) => (
+          Object.keys(ingredients).map((recipeStep) => (
             <div key={recipeStep}>
               <b>{recipeStep}</b>
               <ListProducts listItems={ingredients[recipeStep]} noButtons />
@@ -83,7 +112,10 @@ export const ItemRecipe: React.FC<ItemRecipeProps> = ({
 
       <footer>
         <p>#macarons</p>
-        {convertToCurrency(totalCost)}
+
+        <p style={{ textDecoration: !showWarning() ? "none" : "line-through" }}>
+          {convertToCurrency(totalCost)}
+        </p>
       </footer>
     </div>
   );
