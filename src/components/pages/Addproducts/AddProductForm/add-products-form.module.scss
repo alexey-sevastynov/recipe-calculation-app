@@ -4,3 +4,10 @@
   flex-wrap: wrap;
   gap: 10px;
 }
+
+.editForm {
+  input,
+  select {
+    background-color: rgba(255, 255, 0, 0.552);
+  }
+}

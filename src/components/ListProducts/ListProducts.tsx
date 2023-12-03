@@ -8,6 +8,7 @@ export const ListProducts: React.FC<ListProductProps> = ({
   nameRecipe,
   setIngredients,
   ingredients,
+  setFocusFieldNameProduct,
 }) => {
   return (
     <div className={Styles.listProducts}>
@@ -24,6 +25,7 @@ export const ListProducts: React.FC<ListProductProps> = ({
           listItems={listItems}
           setIngredients={setIngredients}
           ingredients={ingredients}
+          setFocusFieldNameProduct={setFocusFieldNameProduct}
         />
       ))}
     </div>

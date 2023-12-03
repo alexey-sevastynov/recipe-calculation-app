@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/pages/create-recipe/CreateRecipe.scss";
 
 import { ListProducts } from "../components/ListProducts/ListProducts";
@@ -12,19 +12,15 @@ import { addRecipe, editRecipe } from "../redux/recipesSlice";
 
 export const CreateRecipe = () => {
   const dispatch = useAppDispatch();
+
   const listRecipes = useAppSelector((state) => state.recipes.listRecipes);
   const isEditRecipe = useAppSelector((state) => state.recipes.isEditRecipe);
   const recipeNameToEdit = useAppSelector(
     (state) => state.recipes.recipeNameToEdit
   );
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-    getValues,
-  } = useForm<InputsAddRecipesForm>();
+  const { register, handleSubmit, setValue, getValues } =
+    useForm<InputsAddRecipesForm>();
 
   const [ingredients, setIngredients] = useState<
     RecipeWithSteps | TypeItemRecipe[] | null
@@ -49,6 +45,7 @@ export const CreateRecipe = () => {
   useEffect(() => {
     if (isEditRecipe) {
       setValue("nameRecipe", recipeNameToEdit);
+      //@ts-ignore
       setIngredients(listRecipes[recipeNameToEdit]);
     }
   }, [getValues("nameRecipe")]);

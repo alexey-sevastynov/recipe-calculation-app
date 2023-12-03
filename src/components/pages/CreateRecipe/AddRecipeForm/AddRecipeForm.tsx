@@ -151,6 +151,7 @@ export const AddRecipeForm: React.FC<AddRecipeFormProps> = ({
         </select>
         <input
           type="number"
+          step={0.1}
           placeholder="Масса..."
           name="netWeight"
           value={netWeight}

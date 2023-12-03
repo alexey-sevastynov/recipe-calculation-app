@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Styles from "./add-products-form.module.scss";
 
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -12,19 +12,17 @@ import {
   setProductFormState,
 } from "../../../../redux/productsSlice";
 
-export const AddProductForm: React.FC<AddProductFormProps> = () => {
+export const AddProductForm: React.FC<AddProductFormProps> = ({
+  focusOnInput,
+}) => {
   const dispatch = useAppDispatch();
   const isEdit = useAppSelector((state) => state.products.isEdit);
   const productFormState = useAppSelector(
     (state) => state.products.productFormState
   );
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm<InputsAddProductsForm>();
+  const { register, handleSubmit, setValue, setFocus } =
+    useForm<InputsAddProductsForm>();
 
   const onSubmit: SubmitHandler<InputsAddProductsForm> = (data) => {
     const { netWeight, price, productName, weightUnit } = data;
@@ -64,7 +62,7 @@ export const AddProductForm: React.FC<AddProductFormProps> = () => {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (productFormState.netWeight && productFormState.price) {
       setValue("productName", productFormState.productName);
       setValue("netWeight", productFormState.netWeight);
@@ -73,9 +71,15 @@ export const AddProductForm: React.FC<AddProductFormProps> = () => {
     }
   }, [productFormState]);
 
+  useEffect(() => {
+    if (focusOnInput) {
+      setFocus("productName");
+    }
+  }, [focusOnInput, productFormState]);
+
   return (
     <form
-      className={Styles.AddProductFrom}
+      className={`${Styles.AddProductFrom} ${isEdit ? Styles.editForm : ""}`}
       onSubmit={handleSubmit(onSubmit)}
       id="form-product"
     >
@@ -86,6 +90,7 @@ export const AddProductForm: React.FC<AddProductFormProps> = () => {
       />
       <input
         type="number"
+        step={0.1}
         placeholder="МАСА НЕТТО в упаковці ..."
         {...register("netWeight", { required: true })}
       />
@@ -99,6 +104,7 @@ export const AddProductForm: React.FC<AddProductFormProps> = () => {
 
       <input
         type="number"
+        step={0.01}
         placeholder="СКІЛЬКИ КОШТУЄ ..."
         {...register("price", { required: true })}
       />

@@ -18,6 +18,7 @@ export const ItemProduct: React.FC<ItemProductProps> = ({
   listItems,
   setIngredients,
   ingredients,
+  setFocusFieldNameProduct,
 }) => {
   const dispatch = useAppDispatch();
   const editButtonRef = useRef<HTMLButtonElement>(null);
@@ -66,6 +67,7 @@ export const ItemProduct: React.FC<ItemProductProps> = ({
   const editItem = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     dispatch(showButtonEdit(true));
+    setFocusFieldNameProduct();
 
     dispatch(
       setProductFormState({ id, productName, netWeight, price, weightUnit })

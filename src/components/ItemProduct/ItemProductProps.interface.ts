@@ -6,4 +6,5 @@ interface ItemProductProps extends TypeItemProduct {
   ) => void;
   nameRecipe?: string | undefined;
   ingredients?: RecipeWithSteps;
+  setFocusFieldNameProduct?: any;
 }

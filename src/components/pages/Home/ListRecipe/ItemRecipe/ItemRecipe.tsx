@@ -72,13 +72,12 @@ export const ItemRecipe: React.FC<ItemRecipeProps> = ({
           <ListProducts listItems={ingredients} noButtons />
         ) : (
           Object.keys(ingredients)
-            .sort()
-            .map((recipeStep) => (
-              <div key={recipeStep}>
-                <b>{recipeStep}</b>
-                <ListProducts listItems={ingredients[recipeStep]} noButtons />
-              </div>
-            ))
+          .map((recipeStep) => (
+            <div key={recipeStep}>
+              <b>{recipeStep}</b>
+              <ListProducts listItems={ingredients[recipeStep]} noButtons />
+            </div>
+          ))
         )}
       </div>
 

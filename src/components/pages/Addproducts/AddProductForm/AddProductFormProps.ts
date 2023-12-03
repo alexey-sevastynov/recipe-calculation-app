@@ -1,1 +1,3 @@
-interface AddProductFormProps {}
+interface AddProductFormProps {
+  focusOnInput: boolean;
+}
