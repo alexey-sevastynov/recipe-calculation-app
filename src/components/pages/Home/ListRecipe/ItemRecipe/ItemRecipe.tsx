@@ -51,8 +51,8 @@ export const ItemRecipe: React.FC<ItemRecipeProps> = ({
           розрахунок невірний. Додай ці товари до свого списку!
         </p>
         <ul>
-          {missingProducts.map((item) => (
-            <li>{item.productName} (ціна невідома)</li>
+          {missingProducts.map((item, id) => (
+            <li key={id}>{item.productName} (ціна невідома)</li>
           ))}
         </ul>
       </div>
@@ -64,7 +64,7 @@ export const ItemRecipe: React.FC<ItemRecipeProps> = ({
   return (
     <div className={Style.itemRecipe}>
       <h5>{title}</h5>
-      <p>{showWarning()}</p>
+      {showWarning()}
       <Link to={"/create-recipe"}>
         <button className={Style.edit} onClick={editRecipe}>
           <img src={getIconUrl("edit.svg")} alt="edit" />

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface IInitialState {
-  listRecipes: Recipe | {};
+  listRecipes: Recipe;
   recipeNameToEdit: string;
   isEditRecipe: boolean;
 }

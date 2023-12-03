@@ -1,5 +1,5 @@
 interface ISearchProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  listItems: TypeItemProduct[];
-  setListOfFoundItems: (listOfFoundItems: TypeItemProduct[]) => void;
+  listItems: TypeItemProduct[] | Recipe;
+  setListOfFoundItems: (listOfFoundItems: TypeItemProduct[] | Recipe) => void;
   placeholder?: string;
 }

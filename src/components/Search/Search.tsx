@@ -11,14 +11,38 @@ export const Search: React.FC<ISearchProps> = ({
   const [searchValue, setSearchValue] = useState("");
 
   const searchOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearchValue(value);
+    const textValue = e.target.value.toLowerCase();
 
-    const foundOfProducts = listItems.filter((product) =>
-      product.productName.toLowerCase().includes(value)
-    );
+    if (Array.isArray(listItems)) {
+      setSearchValue(textValue);
 
-    setListOfFoundItems(foundOfProducts);
+      const foundOfProducts = listItems.filter((product) =>
+        product.productName.toLowerCase().includes(textValue)
+      );
+
+      setListOfFoundItems(foundOfProducts);
+    } else {
+      const textValue = e.target.value.toLowerCase();
+      setSearchValue(textValue);
+
+      if (textValue === "") {
+        setListOfFoundItems(listItems);
+      } else {
+        const filteredRecipes = Object.keys(listItems).filter((recipeKey) =>
+          recipeKey.toLowerCase().includes(textValue)
+        );
+
+        const sortedRecipes: Recipe = {};
+
+        filteredRecipes.forEach((recipeName: string) => {
+          if (listItems[recipeName]) {
+            sortedRecipes[recipeName] = listItems[recipeName];
+          }
+        });
+
+        setListOfFoundItems(sortedRecipes);
+      }
+    }
   };
 
   return (

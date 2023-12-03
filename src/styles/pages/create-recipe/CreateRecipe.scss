@@ -1,4 +1,12 @@
+@import "../../../styles/colors.scss";
+@import "../../../styles/sizes.scss";
+@import "../../../styles/mixins.scss";
+@import "../../../styles/brake-points.scss";
+
+$margin-top-bottom: 20px;
+
 .create-recipe {
+  @include height-vh100-window;
   .btn {
     border: 1px solid black;
     cursor: pointer;

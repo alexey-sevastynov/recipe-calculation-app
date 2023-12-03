@@ -103,7 +103,7 @@ export const AddRecipeForm: React.FC<AddRecipeFormProps> = ({
         <input
           type="text"
           placeholder="Заголовок рецепта..."
-          {...register("nameRecipe")}
+          {...register("nameRecipe", { required: true })}
         />
       </div>
       {!isIngredientsTypeArray && (
