@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import Styles from "./add-recipe-form.module.scss";
 import { Btn } from "../../../Btn/Btn";
 
@@ -9,13 +9,20 @@ export const AddRecipeForm: React.FC<AddRecipeFormProps> = ({
   register,
   setIngredients,
   ingredients,
+  focusInputStepName,
+  setFocusInputStepName,
+  stepName,
+  setStepName,
+  isEditStepName,
+  setIsEditStepName,
+  selectedStep,
+  setSelectedStep,
 }) => {
   const listProducts = useAppSelector((state) => state.products.listProducts);
+  const refStepName = useRef<HTMLInputElement | null>(null);
 
-  const [stepName, setStepName] = useState<string>("");
   const [selectedProduct, setSelectedProduct] = useState<string>("");
 
-  const [selectedStep, setSelectedStep] = useState<string>("");
   const [netWeight, setNetWeight] = useState<number | undefined>(0); // leave empty field for placeholder
   const [weightUnit, setWeightUnit] = useState("");
 
@@ -91,11 +98,38 @@ export const AddRecipeForm: React.FC<AddRecipeFormProps> = ({
     }
   };
 
+  const editStep = () => {
+    if (selectedStep && stepName.length > 0) {
+      const updatedIngredients: Record<string, any> = { ...ingredients };
+      console.log(updatedIngredients);
+
+      if (updatedIngredients[selectedStep] && stepName) {
+        updatedIngredients[stepName] = updatedIngredients[selectedStep];
+        delete updatedIngredients[selectedStep];
+
+        setIngredients(updatedIngredients);
+        setSelectedStep(stepName);
+        setStepName("");
+        setIsEditStepName(false);
+      }
+    }
+  };
+
   useEffect(() => {
     if (currentProduct && selectedProduct) {
       setWeightUnit(getUnitsValueForItemRecipe(currentProduct)[0]);
     }
   }, [selectedProduct]);
+
+  const handleBlur = () => {
+    setFocusInputStepName(false);
+  };
+
+  useEffect(() => {
+    if (focusInputStepName && refStepName.current) {
+      refStepName.current.focus();
+    }
+  }, [focusInputStepName]);
 
   return (
     <div className={Styles.addRecipeForm}>
@@ -110,14 +144,26 @@ export const AddRecipeForm: React.FC<AddRecipeFormProps> = ({
         <div className={Styles.step}>
           <input
             type="text"
+            ref={refStepName}
+            onBlur={handleBlur}
             placeholder="Додати крок..."
             name="stepName"
             onChange={handleInputChange}
             value={stepName}
           />
-          <Btn type="button" onClick={addStep}>
-            add
-          </Btn>
+          {isEditStepName ? (
+            <>
+              <Btn type="button" onClick={editStep}>
+                edit
+              </Btn>
+
+              <button onClick={() => setIsEditStepName(false)}>cancel</button>
+            </>
+          ) : (
+            <Btn type="button" onClick={addStep}>
+              add
+            </Btn>
+          )}
         </div>
       )}
 

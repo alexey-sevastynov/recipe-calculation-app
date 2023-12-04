@@ -19,6 +19,11 @@ export const CreateRecipe = () => {
     (state) => state.recipes.recipeNameToEdit
   );
 
+  const [focusInputStepName, setFocusInputStepName] = useState(false);
+  const [isEditStepName, setIsEditStepName] = useState(false);
+  const [stepName, setStepName] = useState<string>("");
+  const [selectedStep, setSelectedStep] = useState<string>("");
+
   const { register, handleSubmit, setValue, getValues } =
     useForm<InputsAddRecipesForm>();
 
@@ -42,6 +47,22 @@ export const CreateRecipe = () => {
 
   const isArrayIngredients = Array.isArray(ingredients);
 
+  const deleteStep = (nameStep: string) => {
+    if (ingredients && !isArrayIngredients) {
+      const newIngredients = { ...ingredients };
+      delete newIngredients[nameStep];
+      setIngredients(newIngredients);
+    }
+  };
+  const editStep = (nameStep: string) => {
+    if (ingredients && !isArrayIngredients) {
+      setStepName(nameStep);
+      setSelectedStep(nameStep);
+      setIsEditStepName(true);
+      setFocusInputStepName(true);
+    }
+  };
+
   useEffect(() => {
     if (isEditRecipe) {
       setValue("nameRecipe", recipeNameToEdit);
@@ -59,6 +80,14 @@ export const CreateRecipe = () => {
           register={register}
           setIngredients={setIngredients}
           ingredients={ingredients}
+          focusInputStepName={focusInputStepName}
+          setFocusInputStepName={setFocusInputStepName}
+          stepName={stepName}
+          setStepName={setStepName}
+          isEditStepName={isEditStepName}
+          setIsEditStepName={setIsEditStepName}
+          selectedStep={selectedStep}
+          setSelectedStep={setSelectedStep}
         />
         {ingredients &&
           (isArrayIngredients ? (
@@ -72,10 +101,18 @@ export const CreateRecipe = () => {
               <div key={recipeStep}>
                 <b>{recipeStep}</b>
 
-                <button type="button" className="btn">
+                <button
+                  type="button"
+                  className="btn"
+                  onClick={() => editStep(recipeStep)}
+                >
                   edit name step
                 </button>
-                <button type="button" className="btn">
+                <button
+                  type="button"
+                  className="btn"
+                  onClick={() => deleteStep(recipeStep)}
+                >
                   remove step
                 </button>
                 <ListProducts
