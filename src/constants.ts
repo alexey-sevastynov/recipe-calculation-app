@@ -6,8 +6,12 @@ export const ROUTES = {
 
 export const MESSAGE_PRODUCT_LIST_EMPTY =
   "Поки що у вас немає продуктів! Додати продукти, натисніть на кнопку вище";
+export const MESSAGE_RECIPE_LIST_EMPTY =
+  "Поки що у вас немає рецептів! Додайте продукти та створи свій власний рецепт по тим продуктам, які додав. Для розрахунку коштів за рецепт.";
 export const MESSAGE_FOUND_PRODUCT_LIST_EMPTY =
   "На жаль ми не знайшли в списку назву продукту, починаючи з цих літер, спробуй інакше";
+export const MESSAGE_FOUND_RECIPE_LIST_EMPTY =
+  "На жаль ми не знайшли в списку назву рецепту, починаючи з цих літер, спробуй інакше";
 
 export const UNITS: UnitsType[] = ["гр", "мл", "кг", "л", "шт"];
 

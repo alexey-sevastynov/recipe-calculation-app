@@ -56,6 +56,7 @@ export const AddProducts = () => {
             <Search
               placeholder="Пошук продукту ..."
               listItems={listProducts}
+              //@ts-ignore, need to solve the problem TS !!!
               setListOfFoundItems={setListOfFoundProducts}
             />
 
