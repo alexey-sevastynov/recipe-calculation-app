@@ -4,6 +4,10 @@ export const ROUTES = {
   CREATE_RECIPE: "/create-recipe",
 };
 
+export const COLORS = {
+  red: "#760101",
+};
+
 export const MESSAGE_PRODUCT_LIST_EMPTY =
   "Поки що у вас немає продуктів! Додати продукти, натисніть на кнопку вище";
 export const MESSAGE_RECIPE_LIST_EMPTY =

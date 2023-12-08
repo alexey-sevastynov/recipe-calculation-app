@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Style from "./item-recipe.module.scss";
 import { Link } from "react-router-dom";
 import { getIconUrl } from "../../../../../helpers/getIconUrl";
@@ -12,29 +12,34 @@ import {
   setRecipeNameToEdit,
 } from "../../../../../redux/recipesSlice";
 import { convertToCurrency } from "../../../../../helpers/convertToCurrency";
+import { BtnSmall } from "../../../../BtnSmall/BtnSmall";
+import { COLORS } from "../../../../../constants";
 
 export const ItemRecipe: React.FC<ItemRecipeProps> = ({
   title,
   ingredients,
+  onDelete,
 }) => {
   const dispatch = useAppDispatch();
   const listProducts = useAppSelector((state) => state.products.listProducts);
   const isEditRecipe = useAppSelector((state) => state.recipes.isEditRecipe);
   const isArrayIngredients = Array.isArray(ingredients);
+  const isIngredientsValid = ingredients && typeof ingredients === "object";
 
   const editRecipe = () => {
     dispatch(setIsEditRecipe(true));
     dispatch(setRecipeNameToEdit(title));
   };
 
-  const totalCost = calculateTotalCost(
-    ingredients,
-    listProducts,
-    isArrayIngredients
-  );
+  const totalCost =
+    ingredients && listProducts
+      ? calculateTotalCost(ingredients, listProducts, isArrayIngredients)
+      : 0;
 
   const showWarning = () => {
-    const allRecipeProducts = Object.values(ingredients).flat();
+    const allRecipeProducts = isIngredientsValid
+      ? Object.values(ingredients).flat()
+      : [];
 
     const missingProducts: TypeItemRecipe[] = allRecipeProducts.filter(
       (recipeProduct) =>
@@ -65,18 +70,21 @@ export const ItemRecipe: React.FC<ItemRecipeProps> = ({
     <div className={Style.itemRecipe}>
       <h5>{title}</h5>
       {showWarning()}
-      <Link to={"/create-recipe"}>
-        <button className={Style.edit} onClick={editRecipe}>
+
+      <Link to={"/create-recipe"} className={Style.edit}>
+        <BtnSmall onClick={editRecipe}>
           <img src={getIconUrl("edit.svg")} alt="edit" />
-        </button>
+        </BtnSmall>
       </Link>
 
-      <button
-        className={Style.delete}
-        onClick={() => dispatch(deleteRecipe(title))}
-      >
-        <img src={getIconUrl("delete.svg")} alt="delete" />
-      </button>
+      <div className={Style.delete}>
+        <BtnSmall
+          onClick={() => onDelete(title)}
+          style={{ backgroundColor: COLORS.red }}
+        >
+          <img src={getIconUrl("delete.svg")} alt="delete" />
+        </BtnSmall>
+      </div>
 
       <div className={Style.ingredientsTilte}>
         <p>інгредієнти</p>
@@ -89,6 +97,7 @@ export const ItemRecipe: React.FC<ItemRecipeProps> = ({
           isArrayIngredients ? (
             <ListProducts listItems={ingredients} noButtons />
           ) : (
+            isIngredientsValid &&
             Object.keys(ingredients)
               .sort()
               .map((recipeStep) => (
@@ -101,6 +110,7 @@ export const ItemRecipe: React.FC<ItemRecipeProps> = ({
         ) : isArrayIngredients ? (
           <ListProducts listItems={ingredients} noButtons />
         ) : (
+          isIngredientsValid &&
           Object.keys(ingredients).map((recipeStep) => (
             <div key={recipeStep}>
               <b>{recipeStep}</b>

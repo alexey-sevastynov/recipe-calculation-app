@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Styles from "./list-recipe.module.scss";
 
@@ -9,13 +9,30 @@ import {
   MESSAGE_FOUND_RECIPE_LIST_EMPTY,
   MESSAGE_RECIPE_LIST_EMPTY,
 } from "../../../../constants";
+import { useDispatch } from "react-redux";
+import { deleteRecipe } from "../../../../redux/recipesSlice";
 
 export const ListRecipe = () => {
+  const dispatch = useDispatch();
   const listRecipes = useAppSelector((state) => state.recipes.listRecipes);
   const [listFoundRecipes, setListFoundRecipes] = useState<Recipe>(listRecipes);
 
   const isHaveRecipes = Object.keys(listRecipes).length !== 0;
   const isHaveFoundRecipes = Object.keys(listFoundRecipes).length !== 0;
+
+  useEffect(() => {
+    setListFoundRecipes(listFoundRecipes);
+  }, [listRecipes]);
+
+  const handleRecipeDeletion = (recipeTitle: string) => {
+    // Delete recipe
+    dispatch(deleteRecipe(recipeTitle));
+
+    // update list recipes after delete
+    const updatedRecipes = { ...listFoundRecipes };
+    delete updatedRecipes[recipeTitle];
+    setListFoundRecipes(updatedRecipes);
+  };
 
   return (
     <section className={Styles.listRecipe}>
@@ -33,6 +50,7 @@ export const ListRecipe = () => {
             key={recipeKey}
             title={recipeKey}
             ingredients={listRecipes[recipeKey]}
+            onDelete={handleRecipeDeletion}
           />
         ))
       ) : (

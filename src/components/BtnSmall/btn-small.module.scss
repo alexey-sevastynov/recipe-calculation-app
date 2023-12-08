@@ -1,0 +1,14 @@
+@import "../../styles/colors.scss";
+
+.btnSmall {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 30px;
+  background-color: $green;
+  border-radius: 100%;
+
+  cursor: pointer;
+}
