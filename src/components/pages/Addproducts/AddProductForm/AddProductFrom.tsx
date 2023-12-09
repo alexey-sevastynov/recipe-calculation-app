@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import Styles from "./add-products-form.module.scss";
 
 import { useForm, SubmitHandler } from "react-hook-form";

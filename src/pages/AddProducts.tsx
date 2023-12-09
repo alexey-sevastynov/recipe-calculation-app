@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/pages/add-products/add-products.scss";
 
 import { ListProducts } from "../components/ListProducts/ListProducts";
