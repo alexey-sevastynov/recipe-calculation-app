@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Style from "./item-recipe.module.scss";
 import { Link } from "react-router-dom";
 import { getIconUrl } from "../../../../../helpers/getIconUrl";
@@ -7,7 +7,6 @@ import { calculateTotalCost } from "../../../../../helpers/calculateTotalCost";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/hook";
 
 import {
-  deleteRecipe,
   setIsEditRecipe,
   setRecipeNameToEdit,
 } from "../../../../../redux/recipesSlice";

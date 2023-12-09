@@ -93,6 +93,7 @@ export const AddRecipeForm: React.FC<AddRecipeFormProps> = ({
 
     if (!ingredients && isRequireField) {
       setIngredients([
+        //@ts-ignore
         { id, productName: selectedProduct, netWeight, weightUnit },
       ]);
     }

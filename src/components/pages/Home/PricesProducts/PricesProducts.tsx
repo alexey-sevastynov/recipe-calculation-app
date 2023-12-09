@@ -1,11 +1,10 @@
-import React from "react";
 import Style from "./prices-products.module.scss";
 
 import { Link } from "react-router-dom";
 import { getIconUrl } from "../../../../helpers/getIconUrl";
 import { useAppSelector } from "../../../../redux/hook";
 import { ListProducts } from "../../../ListProducts/ListProducts";
-import { FAKE_LIST, MESSAGE_PRODUCT_LIST_EMPTY } from "../../../../constants";
+import { MESSAGE_PRODUCT_LIST_EMPTY } from "../../../../constants";
 
 export const PricesProducts = () => {
   const listProducts = useAppSelector((item) => item.products.listProducts);

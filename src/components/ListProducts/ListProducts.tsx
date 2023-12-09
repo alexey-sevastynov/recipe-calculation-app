@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Styles from "./list-products.module.scss";
 import { ItemProduct } from "../ItemProduct/ItemProduct";
 
