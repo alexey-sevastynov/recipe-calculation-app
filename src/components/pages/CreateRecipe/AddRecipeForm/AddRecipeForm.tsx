@@ -19,9 +19,12 @@ export const AddRecipeForm: React.FC<AddRecipeFormProps> = ({
   setSelectedStep,
 }) => {
   const listProducts = useAppSelector((state) => state.products.listProducts);
+  const listRecipes = useAppSelector((state) => state.recipes.listRecipes);
+
   const refStepName = useRef<HTMLInputElement | null>(null);
 
   const [selectedProduct, setSelectedProduct] = useState<string>("");
+  const [selectedRecipe, setSelectedRecipe] = useState<string>("");
 
   const [netWeight, setNetWeight] = useState<number | undefined>(0); // leave empty field for placeholder
   const [weightUnit, setWeightUnit] = useState("");
@@ -48,6 +51,8 @@ export const AddRecipeForm: React.FC<AddRecipeFormProps> = ({
       setStepName(value);
     } else if (name === "selectedProduct") {
       setSelectedProduct(value);
+    } else if (name === "selectedRecipe") {
+      setSelectedRecipe(value);
     } else if (name === "netWeight") {
       // Parse the input value to a number
       const weight = parseFloat(value);
@@ -63,6 +68,18 @@ export const AddRecipeForm: React.FC<AddRecipeFormProps> = ({
   const addStep = () => {
     if (stepName.length !== 0) {
       setIngredients({ [stepName]: [], ...ingredients });
+    }
+  };
+
+  const addRecipe = () => {
+    if (selectedRecipe && listRecipes) {
+      const updatedIngredients: { [key: string]: any } = { ...ingredients };
+      updatedIngredients[selectedRecipe] = listRecipes[selectedRecipe];
+      setIngredients(updatedIngredients);
+      // setIngredients({
+      //   ...ingredients,
+      //   [selectedRecipe]: listRecipes[selectedRecipe],
+      // });
     }
   };
 
@@ -160,9 +177,30 @@ export const AddRecipeForm: React.FC<AddRecipeFormProps> = ({
               <button onClick={() => setIsEditStepName(false)}>cancel</button>
             </>
           ) : (
-            <Btn type="button" onClick={addStep}>
-              add
-            </Btn>
+            <>
+              <Btn type="button" onClick={addStep}>
+                add
+              </Btn>
+              <Btn type="button" onClick={addRecipe}>
+                Look at
+              </Btn>
+              <select
+                name="selectedRecipe"
+                value={selectedRecipe}
+                onChange={handleInputChange}
+              >
+                <option value="">Выберите Recipe</option>
+                {Object.keys(listRecipes).map((stepName) => {
+                  if (Array.isArray(listRecipes[stepName])) {
+                    return (
+                      <option key={stepName} value={stepName}>
+                        {stepName}
+                      </option>
+                    );
+                  }
+                })}
+              </select>
+            </>
           )}
         </div>
       )}
