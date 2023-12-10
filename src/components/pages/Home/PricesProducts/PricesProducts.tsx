@@ -5,12 +5,12 @@ import { getIconUrl } from "../../../../helpers/getIconUrl";
 import { useAppSelector } from "../../../../redux/hook";
 import { ListProducts } from "../../../ListProducts/ListProducts";
 import { MESSAGE_PRODUCT_LIST_EMPTY } from "../../../../constants";
+import { InfoText } from "../../../InfoText/InfoText";
 
 export const PricesProducts = () => {
   const listProducts = useAppSelector((item) => item.products.listProducts);
   const isProductListNotEmpty = listProducts.length === 0;
 
-  const message = <p>{MESSAGE_PRODUCT_LIST_EMPTY}</p>;
   return (
     <section className={Style.pricesProducts}>
       <h5>Ціна товару в магазині:</h5>
@@ -22,7 +22,10 @@ export const PricesProducts = () => {
       </Link>
 
       {isProductListNotEmpty ? (
-        message
+        <InfoText
+          textMessage={MESSAGE_PRODUCT_LIST_EMPTY}
+          imageName="sad.svg"
+        />
       ) : (
         <ListProducts listItems={listProducts} noButtons />
       )}

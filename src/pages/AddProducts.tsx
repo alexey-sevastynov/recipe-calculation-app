@@ -12,6 +12,7 @@ import {
 } from "../constants";
 import { Search } from "../components/Search/Search";
 import { Sort } from "../components/Sort/Sort";
+import { InfoText } from "../components/InfoText/InfoText";
 
 export const AddProducts = () => {
   const [focusInput, setFocusInput] = useState(false);
@@ -23,17 +24,15 @@ export const AddProducts = () => {
   const isProductListNotEmpty = listProducts.length === 0;
   const isFoundOfProductListNotEmpty = listOfFoundProducts.length === 0;
 
-  const messageListProductsEmpty = <p>{MESSAGE_PRODUCT_LIST_EMPTY}</p>;
-  const messageListFoundProductsEmty = (
-    <p>{MESSAGE_FOUND_PRODUCT_LIST_EMPTY}</p>
-  );
-
   const setFocusFieldNameProduct = () => {
     setFocusInput(true);
   };
 
   const showListProducts = isFoundOfProductListNotEmpty ? (
-    messageListFoundProductsEmty
+    <InfoText
+      textMessage={MESSAGE_FOUND_PRODUCT_LIST_EMPTY}
+      imageName="fail.svg"
+    />
   ) : (
     <ListProducts
       listItems={listOfFoundProducts}
@@ -61,9 +60,14 @@ export const AddProducts = () => {
             />
 
             <div className="add-products__main-col1-list">
-              {isProductListNotEmpty
-                ? messageListProductsEmpty
-                : showListProducts}
+              {isProductListNotEmpty ? (
+                <InfoText
+                  textMessage={MESSAGE_PRODUCT_LIST_EMPTY}
+                  imageName="sad.svg"
+                />
+              ) : (
+                showListProducts
+              )}
             </div>
           </div>
 

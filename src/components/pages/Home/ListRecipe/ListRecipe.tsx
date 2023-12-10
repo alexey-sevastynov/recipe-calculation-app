@@ -11,6 +11,7 @@ import {
 } from "../../../../constants";
 import { useDispatch } from "react-redux";
 import { deleteRecipe } from "../../../../redux/recipesSlice";
+import { InfoText } from "../../../InfoText/InfoText";
 
 export const ListRecipe = () => {
   const dispatch = useDispatch();
@@ -54,11 +55,14 @@ export const ListRecipe = () => {
           />
         ))
       ) : (
-        <p>{MESSAGE_RECIPE_LIST_EMPTY}</p>
+        <InfoText textMessage={MESSAGE_RECIPE_LIST_EMPTY} />
       )}
 
       {!isHaveFoundRecipes && isHaveRecipes && (
-        <p>{MESSAGE_FOUND_RECIPE_LIST_EMPTY}</p>
+        <InfoText
+          textMessage={MESSAGE_FOUND_RECIPE_LIST_EMPTY}
+          imageName="fail.svg"
+        />
       )}
     </section>
   );
