@@ -1,5 +1,6 @@
 @import "../../styles/colors.scss";
 @import "../../styles/sizes.scss";
+@import "../../styles/animation.scss";
 
 .header {
   padding: 0 auto;
@@ -7,6 +8,10 @@
   height: $heightHeader;
   width: 100%;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.221);
+
+  p {
+    animation: pulse 2s ease-in-out infinite;
+  }
 
   .headerWrapper {
     height: $heightHeader;

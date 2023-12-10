@@ -1,6 +1,13 @@
+@import "../../styles/animation.scss";
+
 .infoText {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+
+  img {
+    transform-origin: center bottom;
+    animation: headShake 2s ease-in-out infinite;
+  }
 }
