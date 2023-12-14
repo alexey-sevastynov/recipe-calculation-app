@@ -1,22 +1,10 @@
-import { Route, Routes } from "react-router-dom";
-
-import { ROUTES } from "./constants";
-
-import Layout from "./pages/Layout";
-import { Home } from "./pages/Home";
-import { AddProducts } from "./pages/AddProducts";
-import { CreateRecipe } from "./pages/CreateRecipe";
+import { useRoutes } from "react-router-dom";
+import routes from "./routes";
 
 function App() {
-  return (
-    <Routes>
-      <Route path={ROUTES.HOME} element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path={ROUTES.ADD_PRODUCTS} element={<AddProducts />} />
-        <Route path={ROUTES.CREATE_RECIPE} element={<CreateRecipe />} />
-      </Route>
-    </Routes>
-  );
+  const pages = useRoutes(routes);
+
+  return <>{pages}</>;
 }
 
 export default App;
