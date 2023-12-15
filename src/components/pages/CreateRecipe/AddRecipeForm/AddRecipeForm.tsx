@@ -23,6 +23,8 @@ export const AddRecipeForm: React.FC<AddRecipeFormProps> = ({
 
   const refStepName = useRef<HTMLInputElement | null>(null);
 
+  const [searchProduct, setSearchProduct] = useState<string>("");
+
   const [selectedProduct, setSelectedProduct] = useState<string>("");
   const [selectedRecipe, setSelectedRecipe] = useState<string>("");
 
@@ -42,6 +44,14 @@ export const AddRecipeForm: React.FC<AddRecipeFormProps> = ({
     (product) => product.productName === selectedProduct
   );
 
+  const filterSearch = searchProduct.toLowerCase() || "";
+
+  const searchRes = listProducts.filter((obj) => {
+    const finalRes = obj.productName.toLowerCase();
+
+    return RegExp(filterSearch, "gi").test(finalRes);
+  });
+
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -51,6 +61,8 @@ export const AddRecipeForm: React.FC<AddRecipeFormProps> = ({
       setStepName(value);
     } else if (name === "selectedProduct") {
       setSelectedProduct(value);
+    } else if (name === "searchProduct") {
+      setSearchProduct(value);
     } else if (name === "selectedRecipe") {
       setSelectedRecipe(value);
     } else if (name === "netWeight") {
@@ -158,6 +170,7 @@ export const AddRecipeForm: React.FC<AddRecipeFormProps> = ({
           {...register("nameRecipe", { required: true })}
         />
       </div>
+
       {!isIngredientsTypeArray && (
         <div className={Styles.step}>
           <input
@@ -205,6 +218,27 @@ export const AddRecipeForm: React.FC<AddRecipeFormProps> = ({
           )}
         </div>
       )}
+
+      <div>
+        <input
+          placeholder="Пошук продукту..."
+          value={searchProduct}
+          name="searchProduct"
+          onChange={handleInputChange}
+        />
+
+        <ul>
+          {searchProduct.length > 0 &&
+            searchRes.map((obj) => (
+              <li
+                key={obj.id}
+                onClick={() => setSelectedProduct(obj.productName)}
+              >
+                {obj.productName}
+              </li>
+            ))}
+        </ul>
+      </div>
 
       <div className={Styles.addProduct}>
         {hasNonEmptySteps && (
