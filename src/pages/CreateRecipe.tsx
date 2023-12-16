@@ -14,6 +14,9 @@ export const CreateRecipe = () => {
   const dispatch = useAppDispatch();
 
   const listRecipes = useAppSelector((state) => state.recipes.listRecipes);
+  const listDescripeRecipes = useAppSelector(
+    (state) => state.recipes.listDescripeRecipes
+  );
   const isEditRecipe = useAppSelector((state) => state.recipes.isEditRecipe);
   const recipeNameToEdit = useAppSelector(
     (state) => state.recipes.recipeNameToEdit
@@ -24,6 +27,10 @@ export const CreateRecipe = () => {
   const [stepName, setStepName] = useState<string>("");
   const [selectedStep, setSelectedStep] = useState<string>("");
 
+  const description = listDescripeRecipes.find(
+    (item) => item.keyTitleRecipe === recipeNameToEdit
+  )?.describe;
+
   const { register, handleSubmit, setValue, getValues } =
     useForm<InputsAddRecipesForm>();
 
@@ -31,16 +38,31 @@ export const CreateRecipe = () => {
     RecipeWithSteps | TypeItemRecipe[] | null
   >(null);
 
-  const onSubmit: SubmitHandler<InputsAddRecipesForm> = ({ nameRecipe }) => {
+  const onSubmit: SubmitHandler<InputsAddRecipesForm> = ({
+    nameRecipe,
+    descriptionRecipe,
+  }) => {
     console.log("onSubmit", nameRecipe, ingredients);
     if (ingredients && nameRecipe) {
       if (!isEditRecipe) {
         console.log("onSubmited");
 
-        dispatch(addRecipe({ nameRecipe, value: ingredients }));
+        dispatch(
+          addRecipe({
+            nameRecipe,
+            value: ingredients,
+            describe: descriptionRecipe,
+          })
+        );
       } else {
         console.log("onSubmited edited");
-        dispatch(editRecipe({ nameRecipe, value: ingredients }));
+        dispatch(
+          editRecipe({
+            nameRecipe,
+            value: ingredients,
+            describe: descriptionRecipe,
+          })
+        );
       }
     }
   };
@@ -66,6 +88,7 @@ export const CreateRecipe = () => {
   useEffect(() => {
     if (isEditRecipe) {
       setValue("nameRecipe", recipeNameToEdit);
+      setValue("descriptionRecipe", description || "");
       //@ts-ignore
       setIngredients(listRecipes[recipeNameToEdit]);
     }

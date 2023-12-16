@@ -4,6 +4,7 @@
 
 .itemRecipe {
   @include block-style;
+  max-width: 500px;
 
   .warning {
     max-width: 650px;
@@ -33,6 +34,10 @@
     right: 20px;
   }
 
+  .description {
+    text-align: justify;
+  }
+
   .ingredientsTilte {
     margin-top: 10px;
     margin-bottom: 20px;
@@ -46,9 +51,6 @@
   }
 
   .ingredients {
-    // max-width: 345px;
-    // margin: 0 auto;
-
     .ingredientsItem {
       display: flex;
       justify-content: space-between;

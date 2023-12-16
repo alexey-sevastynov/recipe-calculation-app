@@ -21,7 +21,15 @@ export const ItemRecipe: React.FC<ItemRecipeProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const listProducts = useAppSelector((state) => state.products.listProducts);
+  const listDescripeRecipes = useAppSelector(
+    (state) => state.recipes.listDescripeRecipes
+  );
   const isEditRecipe = useAppSelector((state) => state.recipes.isEditRecipe);
+
+  const description = listDescripeRecipes.find(
+    (item) => item.keyTitleRecipe === title
+  )?.describe;
+
   const isArrayIngredients = Array.isArray(ingredients);
   const isIngredientsValid = ingredients && typeof ingredients === "object";
 
@@ -83,6 +91,10 @@ export const ItemRecipe: React.FC<ItemRecipeProps> = ({
         >
           <img src={getIconUrl("delete.svg")} alt="delete" />
         </BtnSmall>
+      </div>
+
+      <div className={Style.description}>
+        <p>Опис: {description}</p>
       </div>
 
       <div className={Style.ingredientsTilte}>

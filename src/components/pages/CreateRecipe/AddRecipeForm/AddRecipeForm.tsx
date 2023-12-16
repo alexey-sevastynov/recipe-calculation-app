@@ -170,6 +170,13 @@ export const AddRecipeForm: React.FC<AddRecipeFormProps> = ({
           {...register("nameRecipe", { required: true })}
         />
       </div>
+      <div className={Styles.title}>
+        <textarea
+          type="text"
+          placeholder="Опис рецепта..."
+          {...register("descriptionRecipe")}
+        />
+      </div>
 
       {!isIngredientsTypeArray && (
         <div className={Styles.step}>
