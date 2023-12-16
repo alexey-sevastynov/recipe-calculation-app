@@ -80,7 +80,7 @@ export const recipesSlice = createSlice({
         image?: string[];
       }>
     ) => {
-      const { nameRecipe, value, describe, image } = action.payload;
+      const { nameRecipe, value, describe } = action.payload;
 
       const isArray = Array.isArray(value);
 
