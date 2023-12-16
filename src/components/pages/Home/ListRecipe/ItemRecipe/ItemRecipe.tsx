@@ -26,9 +26,9 @@ export const ItemRecipe: React.FC<ItemRecipeProps> = ({
   );
   const isEditRecipe = useAppSelector((state) => state.recipes.isEditRecipe);
 
-  const description = listDescripeRecipes.find(
-    (item) => item.keyTitleRecipe === title
-  )?.describe;
+  const description =
+    listDescripeRecipes.find((item) => item.keyTitleRecipe === title)
+      ?.describe || "-";
 
   const isArrayIngredients = Array.isArray(ingredients);
   const isIngredientsValid = ingredients && typeof ingredients === "object";
