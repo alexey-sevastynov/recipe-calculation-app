@@ -68,6 +68,10 @@ export const recipesSlice = createSlice({
 
       if (recipeNameToDelete in listRecipe) {
         delete listRecipe[recipeNameToDelete];
+
+        state.listDescripeRecipes = state.listDescripeRecipes.filter(
+          (item) => item.keyTitleRecipe !== recipeNameToDelete
+        );
       }
     },
 
