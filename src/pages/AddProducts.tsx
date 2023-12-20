@@ -51,32 +51,29 @@ export const AddProducts = () => {
         <AddProductForm focusOnInput={focusInput} />
 
         <main className="add-products__main">
-          <div className="add-products__main-col1">
+          <div className="add-products__main-search-block">
             <Search
               placeholder="Пошук продукту ..."
               listItems={listProducts}
               //@ts-ignore, need to solve the problem TS !!!
               setListOfFoundItems={setListOfFoundProducts}
             />
-
-            <div className="add-products__main-col1-list">
-              {isProductListNotEmpty ? (
-                <InfoText
-                  textMessage={MESSAGE_PRODUCT_LIST_EMPTY}
-                  imageName="sad.svg"
-                />
-              ) : (
-                showListProducts
-              )}
-            </div>
-          </div>
-
-          <div className="add-products__main-col2">
             <Sort
               listFoundItems={listOfFoundProducts}
               setListOfFoundProducts={setListOfFoundProducts}
             />
           </div>
+
+          {isProductListNotEmpty ? (
+            <InfoText
+              textMessage={MESSAGE_PRODUCT_LIST_EMPTY}
+              imageName="sad.svg"
+            />
+          ) : (
+            <div className="add-products__main-list-products">
+              {showListProducts}
+            </div>
+          )}
         </main>
 
         <div className="add-products__btns">

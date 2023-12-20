@@ -85,7 +85,11 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
   };
 
   const disableBtnAdd = listProducts.some(
-    (item) => item.productName === watch("productName")
+    (item) =>
+      item.productName === watch("productName") &&
+      item.price === watch("price") &&
+      item.netWeight === watch("netWeight") &&
+      item.weightUnit === watch("weightUnit")
   );
 
   useEffect(() => {
@@ -172,7 +176,7 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
       <p>грн</p>
 
       {isEdit ? (
-        <Btn type="submit" noActive={disableBtnAdd}>
+        <Btn type="submit" noActive={disableBtnAdd} disabled={disableBtnAdd}>
           Редагувати
         </Btn>
       ) : (
@@ -182,6 +186,7 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
       )}
       {!isEdit &&
         watch("productName") !== undefined &&
+        watch("productName") !== "" &&
         watch("netWeight") !== undefined &&
         watch("price") !== undefined && (
           <Btn

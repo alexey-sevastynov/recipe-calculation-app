@@ -6,6 +6,8 @@
   align-items: center;
   gap: 20px;
 
+  overflow: hidden;
+
   img {
     transform-origin: center bottom;
     animation: headShake 2s ease-in-out infinite;
