@@ -81,7 +81,7 @@ export const AddProducts = () => {
 
         <div className="add-products__btns">
           <Link to={"/"}>
-            <Btn>Cancel</Btn>
+            <Btn>Назад</Btn>
           </Link>
         </div>
       </div>

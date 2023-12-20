@@ -1,6 +1,6 @@
 export type InputsAddProductsForm = {
-  productName: string;
-  netWeight: number;
-  price?: number;
-  weightUnit: UnitsType;
+  productName: string | undefined;
+  netWeight: number | undefined;
+  price?: number | undefined;
+  weightUnit: UnitsType | undefined;
 };

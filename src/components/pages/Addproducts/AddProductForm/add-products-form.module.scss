@@ -2,7 +2,9 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
+  column-gap: 10px;
+
+  row-gap: 30px;
 }
 
 .editForm {

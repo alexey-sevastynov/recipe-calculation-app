@@ -6,6 +6,9 @@ export const ROUTES = {
 
 export const COLORS = {
   red: "#760101",
+  yellow: "#ffd886",
+  black: "#000000",
+  edit: "rgba(255, 255, 0, 0.552)",
 };
 
 export const MESSAGE_PRODUCT_LIST_EMPTY =
